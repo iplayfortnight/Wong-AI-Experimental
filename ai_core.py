@@ -101,10 +101,12 @@ class ProgramSynthesisCore:
                 if "|" in telemetry_raw:
                     parts = telemetry_raw.split('|')
                     for part in parts:
-                        if part.startswith("WPS:") and len(part.split(':')) > 1: live_wps = float(part.split(':')[1])
-                        if part.startswith("PID:") and len(part.split(':')) > 1: active_pid = int(part.split(':')[1])
-                        if part.startswith("DB:") and len(part.split(':')) > 1: audio_db = float(part.split(':')[1])
-                        if part.startswith("STATE:") and len(part.split(':')) > 1: state_flag = part.split(':')[1]
+                        sub_parts = part.split(':')
+                        if len(sub_parts) > 1:
+                            if part.startswith("WPS:"): live_wps = float(sub_parts[1])
+                            if part.startswith("PID:"): active_pid = int(sub_parts[1])
+                            if part.startswith("DB:"): audio_db = float(sub_parts[1])
+                            if part.startswith("STATE:"): state_flag = sub_parts[1]
             except:
                 pass
 
